@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.first.DevicesStatisticsMapper">
+    <resultMap id="resultMap" type="com.example.demo.bean.DevicesStatisticsBean">
+        <id property="id" column="id"/>
+        <result property="time" column="time"/>
+        <result property="examSource" column="exam_source"/>
+        <result property="examClass" column="exam_class"/>
+        <result property="number" column="number"/>
+        <result property="summaryClass" column="summary_class"/>
+    </resultMap>
+    <insert id="insertOne" parameterType="com.example.demo.bean.DevicesStatisticsBean">
+        insert into devices_statistics (`time`, `exam_source`, `exam_class`, `number`, `summary_class`)
+        VALUES (#{time}, #{examSource}, #{examClass}, #{number}, #{summaryClass})
+    </insert>
+
+    <select id="getDayDevicesStatistics" resultMap="resultMap">
+        select *
+        from devices_statistics
+        where time between #{map.startDate}
+          and #{map.endDate}
+    </select>
+    <select id="getReportDtDateFS" resultMap="resultMap">
+        SELECT CURDATE() AS time,
+	e.exam_class,
+	e.PAT_SOURCE  as exam_source,
+	COUNT(v.APPLY_ID) as number
+        FROM
+            exams e,
+            exam_report er,
+            v_sub_exam v
+        WHERE
+            e.exam_id = er.exam_id
+          AND e.exam_status != '00'
+          and e.APPLY_ID=v.APPLY_ID
+          AND  er.REPORT_DT between  #{startTime} and #{endTime}
+        GROUP BY
+            e.exam_class,
+            e.PAT_SOURCE
+    </select>
+    <select id="getReportDtDateUS" resultMap="resultMap">
+        SELECT
+            CURDATE() AS time,
+	v.EXAM_SOURCE,
+	v.EXAM_CLASS,
+	COUNT(DISTINCT v.sub_apply_id ) AS number
+        FROM
+            v_sub_exam v,
+            exam_report er
+        WHERE
+            v.sub_apply_id = er.EXAM_ID
+          AND er.REPORT_DT between  #{startTime} and #{endTime}
+          AND v.exam_status != '00'
+        GROUP BY
+            v.EXAM_SOURCE,
+            v.EXAM_CLASS
+    </select>
+</mapper>

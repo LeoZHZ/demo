@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--UserMapper.xml-->
+<mapper namespace="com.example.demo.mapper.second.VExamMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.bean.TjzxBean">
+        <id column="DJLSH" jdbcType="VARCHAR" property="applyId"/>
+        <result column="DJLSH" jdbcType="VARCHAR" property="examNo"/>
+        <result column="JCLX" jdbcType="VARCHAR" property="examClass"/>
+        <result column="TJBH" jdbcType="VARCHAR" property="sickId"/>
+        <result column="XM" jdbcType="VARCHAR" property="sickName"/>
+        <result column="XB" jdbcType="VARCHAR" property="sickSex"/>
+        <result column="NL" jdbcType="VARCHAR" property="sickAge"/>
+        <result column="SFZH" jdbcType="VARCHAR" property="sickIdentity"/>
+        <result column="ADDRESS" jdbcType="VARCHAR" property="sickAddress"/>
+        <result column="PHONE" jdbcType="VARCHAR" property="sickPhone"/>
+        <result column="DJLSH" jdbcType="VARCHAR" property="patOutNo"/>
+        <result column="DJLSH" jdbcType="VARCHAR" property="patInNo"/>
+        <result column="DJLSH" jdbcType="VARCHAR" property="patPhyNo"/>
+        <result column="SQKS" jdbcType="VARCHAR" property="reqDeptName"/>
+        <result column="SQKSBH" jdbcType="VARCHAR" property="reqDeptCode"/>
+        <result column="SQYSXM" jdbcType="VARCHAR" property="reqPhysician"/>
+        <result column="SQYSBH" jdbcType="VARCHAR" property="reqPhysicianNo"/>
+        <result column="SQSJ" jdbcType="VARCHAR" property="reqDateTime"/>
+        <result column="ZXKSBM" jdbcType="VARCHAR" property="executeDeptCode"/>
+        <result column="CSNYR" jdbcType="DATE" property="CSNYR"/>
+        <result column="XMBH" jdbcType="CHAR" property="itemCode"/>
+        <result column="XMMC" jdbcType="VARCHAR" property="itemName"/>
+        <result column="SSDJ" jdbcType="DECIMAL" property="itemCharge"/>
+        <result column="XH" javaType="INT" property="XH"/>
+
+    </resultMap>
+    <select id="getVExamList" resultMap="BaseResultMap">
+        SELECT *
+        FROM [futian_user].[view_pacsxm_jk]
+
+        where DATEDIFF(DAY, GETDATE(), SQSJ) in (0);
+    </select>
+
+</mapper>

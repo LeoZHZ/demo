@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--UserMapper.xml-->
+<mapper namespace="com.example.demo.mapper.first.VSubExamItemMapper">
+
+    <insert id="insertVExamItem" parameterType="com.example.demo.bean.VExamItem">
+        INSERT into v_sub_exam_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='applyID != null and applyID != "" '>
+                APPLY_ID,
+            </if>
+            <if test='itemNo != null and itemNo != ""'>
+                ITEM_NO,
+            </if>
+            <if test='itemCode != null and itemCode != "" '>
+                ITEM_CODE,
+            </if>
+            <if test='itemName != null and itemName != "" '>
+                ITEM_NAME,
+            </if>
+            <if test='itemCharge != null'>
+                ITEM_CHARGE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='applyID != null and applyID != "" '>
+                #{applyID ,jdbcType=VARCHAR},
+            </if>
+            <if test='itemNo != null and itemNo != "" '>
+                #{itemNo,jdbcType=INTEGER},
+            </if>
+            <if test='itemCode != null and itemCode != "" '>
+                #{itemCode,jdbcType=VARCHAR},
+            </if>
+            <if test='itemName != null and itemName != "" '>
+                #{itemName,jdbcType=VARCHAR},
+            </if>
+            <if test='itemCharge != null'>
+                #{itemCharge,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="checkApplyId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM exam_syn_rec
+        WHERE APPLY_ID = #{applyID}
+        LIMIT 1
+    </select>
+    <select id="checkVEApplyId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM v_sub_exam_item
+        WHERE APPLY_ID = #{applyID}
+        LIMIT 1
+    </select>
+    <delete id="deleteByApplyID" parameterType="string">
+        DELETE
+        FROM v_sub_exam_item
+        WHERE `APPLY_ID` = #{applyID}
+    </delete>
+
+</mapper>

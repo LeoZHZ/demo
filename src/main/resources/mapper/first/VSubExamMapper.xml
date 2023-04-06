@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--UserMapper.xml-->
+<mapper namespace="com.example.demo.mapper.first.VSubExamMapper">
+
+    <insert id="insertVSubExam" parameterType="com.example.demo.bean.TjzxBean">
+        INSERT into v_sub_exam
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='applyId != null and applyId != "" '>
+                APPLY_ID,
+            </if>
+            <if test='subApplyId != null and subApplyId != "" '>
+                sub_apply_id,
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                EXAM_NO,
+            </if>
+            <if test='examClass != null and examClass != "" '>
+                EXAM_CLASS,
+            </if>
+            <if test='sickId != null and sickId != "" '>
+                SICK_ID,
+            </if>
+            <if test='sickName != null and sickName != "" '>
+                SICK_NAME,
+            </if>
+            <if test='sickSex != null and sickSex != "" '>
+                SICK_SEX,
+            </if>
+            <if test='sickAge != null and sickAge != "" '>
+                SICK_AGE,
+            </if>
+            <if test='sickIdentity != null and sickIdentity != "" '>
+                SICK_IDENTITY,
+            </if>
+            <if test='sickAddress != null and sickAddress != "" '>
+                SICK_ADDRESS,
+            </if>
+            <if test='sickPhone != null and sickPhone != "" '>
+                SICK_PHONE,
+            </if>
+            <if test='examSource != null and examSource != "" '>
+                EXAM_SOURCE,
+            </if>
+            <if test='examOrder != null and examOrder != "" '>
+                EXAM_ORDER,
+            </if>
+            <if test='patOutNo != null and patOutNo != "" '>
+                PAT_OUT_NO,
+            </if>
+            <if test='patInNo != null and patInNo != "" '>
+                PAT_IN_NO,
+            </if>
+            <if test='patPhyNo != null and patPhyNo != "" '>
+                PAT_PHY_NO,
+            </if>
+            <if test='reqDeptName != null and reqDeptName != "" '>
+                REQ_DEPT_NAME,
+            </if>
+            <if test='reqDeptCode != null and reqDeptCode != "" '>
+                REQ_DEPT_CODE,
+            </if>
+            <if test='reqPhysician != null and reqPhysician != "" '>
+                REQ_PHYSICIAN,
+            </if>
+            <if test='reqPhysicianNo != null and reqPhysicianNo != "" '>
+                REQ_PHYSICIAN_NO,
+            </if>
+            <if test='reqDateTime != null and reqDateTime != "" '>
+                REQ_DATETIME,
+            </if>
+            <if test='executeDeptCode != null and executeDeptCode != "" '>
+                EXECUTE_DEPT_CODE,
+            </if>
+            <if test='executeDeptName != null and executeDeptName != "" '>
+                EXECUTE_DEPT_NAME,
+            </if>
+            <if test='patBirthday != null and patBirthday != "" '>
+                pat_birthday,
+            </if>
+            <if test='examStatus != null and examStatus != "" '>
+              exam_status ,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='applyId != null and applyId != "" '>
+                #{applyId},
+            </if>
+            <if test='subApplyId != null and subApplyId != "" '>
+                #{subApplyId},
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                #{ examNo},
+            </if>
+            <if test='examClass != null and examClass != "" '>
+                #{ examClass},
+            </if>
+            <if test='sickId != null and sickId != "" '>
+                #{ sickId},
+            </if>
+            <if test='sickName != null and sickName != "" '>
+                #{ sickName},
+            </if>
+            <if test='sickSex != null and sickSex != "" '>
+                #{ sickSex},
+            </if>
+            <if test='sickAge != null and sickAge != "" '>
+                #{ sickAge},
+            </if>
+            <if test='sickIdentity != null and sickIdentity != "" '>
+                #{ sickIdentity },
+            </if>
+            <if test='sickAddress != null and sickAddress != "" '>
+                #{ sickAddress},
+            </if>
+            <if test='sickPhone != null and sickPhone != "" '>
+                #{ sickPhone},
+            </if>
+            <if test='examSource != null and examSource != "" '>
+                #{ examSource},
+            </if>
+            <if test='examOrder != null and examOrder != "" '>
+                #{ examOrder},
+            </if>
+            <if test='patOutNo != null and patOutNo != "" '>
+                #{ patOutNo},
+            </if>
+            <if test='patInNo != null and patInNo != "" '>
+                #{patInNo},
+            </if>
+            <if test='patPhyNo != null and patPhyNo != "" '>
+                #{patPhyNo},
+            </if>
+            <if test='reqDeptName != null and reqDeptName != "" '>
+                #{ reqDeptName},
+            </if>
+            <if test='reqDeptCode != null and reqDeptCode != "" '>
+                #{ reqDeptCode},
+            </if>
+            <if test='reqPhysician != null and reqPhysician != "" '>
+                #{ reqPhysician},
+            </if>
+            <if test='reqPhysicianNo != null and reqPhysicianNo != "" '>
+                #{ reqPhysicianNo},
+            </if>
+            <if test='reqDateTime != null and reqDateTime != "" '>
+                #{reqDateTime},
+            </if>
+            <if test='executeDeptCode != null and executeDeptCode != "" '>
+                #{ executeDeptCode},
+            </if>
+            <if test='executeDeptName != null and executeDeptName != "" '>
+                #{executeDeptName},
+            </if>
+            <if test='patBirthday != null and patBirthday != "" '>
+                #{ patBirthday},
+            </if>
+            <if test='examStatus != null and examStatus != "" '>
+                #{examStatus},
+            </if>
+
+        </trim>
+    </insert>
+
+    <select id="checkESRApplyId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM v_exams
+        WHERE APPLY_ID = #{applyId} LIMIT 1
+    </select>
+    <!--    <select id="checkVEApplyIds" resultType="java.lang.Integer">
+            select 1 from `v_exams`
+            where APPLY_ID = (select APPLY_ID from `v_exams`
+                              where APPLY_ID=#{applyID}
+                              order by APPLY_ID desc)
+            order by APPLY_ID desc
+        </select>-->
+    <select id="checkVEApplyId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM v_exams
+        WHERE APPLY_ID = #{applyID}
+
+    </select>
+    <select id="checkSubApplyId" resultType="java.lang.Integer" parameterType="java.lang.String">
+        SELECT 1
+        FROM v_sub_exam
+        WHERE sub_apply_id = #{subApplyId}
+    </select>
+
+    <delete id="deleteByExamId" parameterType="string">
+        delete
+        from v_exams
+        where APPLY_ID = #{applyID}
+    </delete>
+</mapper>

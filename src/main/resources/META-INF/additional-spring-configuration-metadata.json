@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "primary",
+      "type": "java.lang.String",
+      "description": "Description for primary."
+    },
+    {
+      "name": "spring.datasource.first.driver-class-name",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.first.driver-class-name."
+    },
+    {
+      "name": "logging",
+      "type": "java.lang.String",
+      "description": "Description for logging."
+    },
+    {
+      "name": "file",
+      "type": "java.lang.String",
+      "description": "Description for file."
+    }
+  ] }

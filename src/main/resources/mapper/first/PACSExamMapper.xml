@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.first.PACSExamMapper">
+
+
+    <insert id="insertOneExams" parameterType="com.example.demo.bean.ExamsBean">
+        INSERT INTO EXAMS
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='examId != null and examId != "" '>
+                EXAM_ID,
+            </if>
+            <if test='applyId != null and applyId != ""'>
+                APPLY_ID,
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                EXAM_NO,
+            </if>
+            <if test='patId != null and patId != "" '>
+                PAT_ID,
+            </if>
+            <if test='patNo !=null and patNo!=""'>
+                PAT_NO,
+            </if>
+            <if test='examClass !=null and examClass != "" '>
+                EXAM_CLASS,
+            </if>
+            <if test='patSource !=null and patSource != "" '>
+                PAT_SOURCE,
+            </if>
+            <if test='roomId !=null and roomId != "" '>
+                ROOM_ID,
+            </if>
+            <if test='patOutNo !=null and patOutNo != "" '>
+                PAT_OUT_NO,
+            </if>
+            <if test='patInNo !=null and patInNo != "" '>
+                PAT_IN_NO,
+            </if>
+            <if test='patPhyNo !=null and patPhyNo != "" '>
+                PAT_PHY_NO,
+            </if>
+            <if test='patLendNo !=null and patLendNo != "" '>
+                PAT_LEND_NO,
+            </if>
+            <if test='examLevel !=null and examLevel != "" '>
+                EXAM_LEVEL,
+            </if>
+            <if test='patAge !=null and patAge != "" '>
+                PAT_AGE,
+            </if>
+            <if test='patSex !=null and patSex != "" '>
+                PAT_SEX,
+
+            </if>
+            <if test='patHeight !=null and patHeight != "" '>
+                PAT_HEIGHT,
+            </if>
+            <if test='patWeight !=null and patWeight != "" '>
+                PAT_WEIGHT,
+            </if>
+            <if test='bedNo !=null and bedNo != "" '>
+                BED_NO,
+            </if>
+            <if test='patAddress !=null and patAddress != "" '>
+                PAT_ADDRESS,
+            </if>
+            <if test='patPhone !=null and patPhone != "" '>
+                PAT_PHONE,
+            </if>
+            <if test='clinDept !=null and clinDept != "" '>
+                CLIN_DEPT,
+
+            </if>
+            <if test='clinDoc !=null and clinDoc != "" '>
+                CLIN_DOC,
+            </if>
+            <if test='clinSymp !=null and clinSymp != "" '>
+                CLIN_SYMP,
+            </if>
+            <if test='clinDiag !=null and clinDiag != "" '>
+                CLIN_DIAG,
+            </if>
+            <if test='examNotice !=null and examNotice != "" '>
+                EXAM_NOTICE,
+            </if>
+            <if test='examMemo !=null and examMemo != "" '>
+                EXAM_MEMO,
+            </if>
+            <if test='reqDt !=null and reqDt != "" '>
+                REQ_DT,
+            </if>
+            <if test='examColor !=null and examColor != "" '>
+                EXAM_COLOR,
+
+            </if>
+            <if test='examCount !=null and examCount != "" '>
+                EXAM_COUNT,
+            </if>
+            <if test='examPrice !=null and examPrice != "" '>
+                EXAM_PRICE,
+            </if>
+            <if test='examStatus !=null and examStatus != "" '>
+                EXAM_STATUS,
+            </if>
+            <if test='examRisks !=null and examRisks != "" '>
+                EXAM_RISKS,
+            </if>
+            <if test='executeDeptId !=null and executeDeptId != "" '>
+                EXECUTE_DEPT_ID,
+
+            </if>
+            <if test='executeDeptName !=null and executeDeptName != "" '>
+                EXECUTE_DEPT_NAME,
+
+            </if>
+            <if test='fsyId !=null and fsyId != "" '>
+                FSY_ID,
+            </if>
+            <if test='fsyFlags !=null and fsyFlags != "" '>
+                FSY_FLAGS,
+            </if>
+            <if test='fsyStatus !=null and fsyStatus != "" '>
+                FSY_STATUS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test='examId != null and examId != "" '>
+                #{examId},
+            </if>
+            <if test='applyId != null and applyId != ""'>
+                #{applyId},
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                #{examNo},
+            </if>
+            <if test='patId != null and patId != "" '>
+                #{patId},
+            </if>
+            <if test='patNo !=null and patNo!=""'>
+                #{patNo},
+            </if>
+            <if test='examClass !=null and examClass != "" '>
+                #{examClass},
+            </if>
+            <if test='patSource !=null and patSource != "" '>
+                #{patSource},
+            </if>
+            <if test='roomId !=null and roomId != "" '>
+                #{roomId},
+
+            </if>
+            <if test='patOutNo !=null and patOutNo != "" '>
+                #{patOutNo},
+            </if>
+            <if test='patInNo !=null and patInNo != "" '>
+                #{patInNo},
+
+            </if>
+            <if test='patPhyNo !=null and patPhyNo != "" '>
+                #{patPhyNo},
+            </if>
+            <if test='patLendNo !=null and patLendNo != "" '>
+                #{patLendNo},
+            </if>
+            <if test='examLevel !=null and examLevel != "" '>
+                #{examLevel},
+            </if>
+            <if test='patAge !=null and patAge != "" '>
+                #{patAge},
+            </if>
+            <if test='patSex !=null and patSex != "" '>
+                #{patSex},
+            </if>
+            <if test='patHeight !=null and patHeight != "" '>
+                #{patHeight},
+            </if>
+            <if test='patWeight !=null and patWeight != "" '>
+                #{patWeight},
+
+            </if>
+            <if test='bedNo !=null and bedNo != "" '>
+                #{bedNo},
+
+            </if>
+            <if test='patAddress !=null and patAddress != "" '>
+                #{patAddress},
+            </if>
+            <if test='patPhone !=null and patPhone != "" '>
+                #{patPhone},
+            </if>
+            <if test='clinDept !=null and clinDept != "" '>
+                #{clinDept},
+            </if>
+            <if test='clinDoc !=null and clinDoc != "" '>
+                #{clinDoc},
+            </if>
+            <if test='clinSymp !=null and clinSymp != "" '>
+                #{clinSymp},
+            </if>
+            <if test='clinDiag !=null and clinDiag != "" '>
+                #{clinDiag},
+            </if>
+            <if test='examNotice !=null and examNotice != "" '>
+                #{examNotice},
+
+            </if>
+            <if test='examMemo !=null and examMemo != "" '>
+                #{examMemo},
+            </if>
+            <if test='reqDt !=null and reqDt != "" '>
+                #{reqDt},
+            </if>
+            <if test='examColor !=null and examColor != "" '>
+                #{examColor},
+
+            </if>
+            <if test='examCount !=null and examCount != "" '>
+                #{examCount},
+            </if>
+            <if test='examPrice !=null and examPrice != "" '>
+                #{examPrice},
+            </if>
+            <if test='examStatus !=null and examStatus != "" '>
+                #{examStatus},
+            </if>
+            <if test='examRisks !=null and examRisks != "" '>
+                #{examRisks}
+                ,
+            </if>
+            <if test='executeDeptId !=null and executeDeptId != "" '>
+                #{executeDeptId},
+            </if>
+            <if test='executeDeptName !=null and executeDeptName != "" '>
+                #{executeDeptName},
+            </if>
+            <if test='fsyId !=null and fsyId != "" '>
+                #{fsyId},
+            </if>
+            <if test='fsyFlags !=null and fsyFlags != "" '>
+                #{fsyFlags},
+            </if>
+            <if test='fsyStatus !=null and fsyStatus != "" '>
+                #{fsyStatus},
+            </if>
+        </trim>
+
+
+    </insert>
+    <insert id="insertExamsItemList" parameterType="com.example.demo.bean.ExamItemsBean">
+        INSERT INTO EXAM_ITEMS(EXAM_ID, ITEM_NO, ITEM_CODE, ITEM_NAME, ITEM_PRICE)
+        VALUES (#{examId}, #{itemNo}, #{itemCode}, #{itemName}, #{itemPrice})
+
+    </insert>
+    <insert id="insertOneExamsPatient" parameterType="com.example.demo.bean.ExamPatientBean">
+        INSERT INTO EXAM_PATIENT(`PAT_ID`, `PAT_IDENTITY`, `PAT_SSC_ID`, `PAT_NAME`, PAT_PHONETIC, PAT_SEX,
+                                 PAT_BIRTH_DATE, PAT_COUNTRY, PAT_NATION, PAT_BIRTH_PLACE, PAT_PROFESSION, PAT_DEGREE,
+                                 PAT_MEMO, PAT_FLAGS)
+        VALUES (#{patId}, #{patIdentity}, #{patSscId}, #{patName}, #{patPhonetic}, #{patSex}, #{patBirthDate},
+                #{patCountry}, #{patNation}, #{patBirthPlace}, #{patProfession}, #{patDegree}, #{patMemo}, #{patFlags})
+    </insert>
+    <select id="getOneFlagByExamsApplyId" resultType="string" parameterType="java.lang.String">
+        select exam_id
+        from exams
+        where apply_id = #{applyId}
+    </select>
+    <select id="getOneFlagByExamsItemsExamIdAndItemCode" resultType="java.lang.Integer">
+
+        select 1
+        from EXAM_ITEMS
+        where exam_id = #{examId}
+          and item_code = #{itemCode}
+    </select>
+    <select id="getOneFlagByExamsPatientPatId" resultType="java.lang.Integer"
+            parameterType="java.lang.String">
+        select 1
+        from exam_patient
+        where pat_id = #{patId}
+    </select>
+    <select id="getItemSumByExamId" resultType="java.lang.Integer" parameterType="java.lang.String">
+
+        select count(*)
+        from EXAM_ITEMS
+        where exam_id = #{examId}
+    </select>
+    <select id="getOneFlagByVExamsByApplyId" resultType="java.lang.Integer">
+        select 1
+        from v_exams
+        where apply_id = #{applyId}
+    </select>
+    <select id="getFLagHisInsertFlagByByApplyId" resultType="java.lang.Integer">
+        select 1
+        from his_insert_flag
+        where xh = #{xh}
+    </select>
+    <insert id="insertOneVExams">
+
+        insert into v_exams
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='applyId != null and applyId != ""'>
+                APPLY_ID,
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                EXAM_NO,
+            </if>
+            <if test='patId != null and patId != "" '>
+                SICK_ID,
+            </if>
+            <if test='examClass !=null and examClass != "" '>
+                EXAM_CLASS,
+            </if>
+            <if test='patSource !=null and patSource != "" '>
+                EXAM_SOURCE,
+            </if>
+            <if test='patOutNo !=null and patOutNo != "" '>
+                PAT_OUT_NO,
+            </if>
+            <if test='patInNo !=null and patInNo != "" '>
+                PAT_IN_NO,
+            </if>
+            <if test='patPhyNo !=null and patPhyNo != "" '>
+                PAT_PHY_NO,
+            </if>
+            <if test='patLendNo !=null and patLendNo != "" '>
+                PAT_LEND_NO,
+            </if>
+            <if test='patAge !=null and patAge != "" '>
+                SICK_AGE,
+            </if>
+            <if test='patSex !=null and patSex != "" '>
+                SICK_SEX,
+
+            </if>
+            <if test='patHeight !=null and patHeight != "" '>
+                SICK_HEIGHT,
+            </if>
+            <if test='patWeight !=null and patWeight != "" '>
+                SICK_WEIGHT,
+            </if>
+            <if test='bedNo !=null and bedNo != "" '>
+                BED_NO,
+            </if>
+            <if test='patAddress !=null and patAddress != "" '>
+                SICK_ADDRESS,
+            </if>
+            <if test='patPhone !=null and patPhone != "" '>
+                SICK_PHONE,
+            </if>
+            <if test='reqDt !=null and reqDt != "" '>
+                REQ_DATETIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='applyId != null and applyId != ""'>
+                #{applyId},
+            </if>
+            <if test='examNo != null and examNo != "" '>
+                #{examNo},
+            </if>
+            <if test='patId != null and patId != "" '>
+                #{patId},
+            </if>
+            <if test='examClass !=null and examClass != "" '>
+                #{examClass},
+            </if>
+            <if test='patSource !=null and patSource != "" '>
+                #{patSource},
+            </if>
+            <if test='patOutNo !=null and patOutNo != "" '>
+                #{patOutNo},
+            </if>
+            <if test='patInNo !=null and patInNo != "" '>
+                #{patInNo},
+
+            </if>
+            <if test='patPhyNo !=null and patPhyNo != "" '>
+                #{patPhyNo},
+            </if>
+            <if test='patLendNo !=null and patLendNo != "" '>
+                #{patLendNo},
+            </if>
+            <if test='patAge !=null and patAge != "" '>
+                #{patAge},
+            </if>
+            <if test='patSex !=null and patSex != "" '>
+                #{patSex},
+            </if>
+            <if test='patHeight !=null and patHeight != "" '>
+                #{patHeight},
+            </if>
+            <if test='patWeight !=null and patWeight != "" '>
+                #{patWeight},
+
+            </if>
+            <if test='bedNo !=null and bedNo != "" '>
+                #{bedNo},
+
+            </if>
+            <if test='patAddress !=null and patAddress != "" '>
+                #{patAddress},
+            </if>
+            <if test='patPhone !=null and patPhone != "" '>
+                #{patPhone},
+            </if>
+            <if test='reqDt !=null and reqDt != "" '>
+                #{reqDt},
+            </if>
+
+        </trim>
+
+    </insert>
+    <insert id="insertOneHisInsertFlag">
+        insert into his_insert_flag (xh) values(#{xh})
+    </insert>
+
+
+</mapper>

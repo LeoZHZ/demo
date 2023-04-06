@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--UserMapper.xml-->
+<mapper namespace="com.example.demo.mapper.first.VExamOrganTagMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.bean.VExamOrgan">
+        <id column="APPLY_ID" jdbcType="VARCHAR" property="applyID"/>
+        <result column="ORGAN_NO" jdbcType="INTEGER" property="organNo"/>
+        <result column="ORGAN_NAME" jdbcType="VARCHAR" property="organName"/>
+    </resultMap>
+    <select id="getVExamOrganList" resultMap="BaseResultMap">
+        SELECT *
+        FROM `v_exam_organ`;
+    </select>
+    <insert id="insertVExamOrgan" parameterType="com.example.demo.bean.VExamOrgan">
+        INSERT into v_exam_organ
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='applyID != null and applyID != "" '>
+                APPLY_ID,
+            </if>
+            <if test='organNo != null'>
+                ORGAN_NO,
+            </if>
+            <if test='organName != null and organName != "" '>
+                ORGAN_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='applyID != null and applyID != "" '>
+                #{applyID ,jdbcType=VARCHAR},
+            </if>
+            <if test='organNo != null '>
+                #{organNo,jdbcType=INTEGER},
+            </if>
+            <if test='organName != null and organName != "" '>
+                #{organName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="checkApplyId" resultType="java.lang.Integer">
+
+        SELECT 1
+        FROM exam_syn_rec
+        WHERE APPLY_ID = #{applyID}
+        LIMIT 1
+    </select>
+    <select id="checkVEApplyId" resultType="java.lang.Integer">
+        SELECT 1
+        FROM v_exam_organ
+        WHERE APPLY_ID = #{applyID}
+        LIMIT 1
+    </select>
+    <delete id="deleteByApplyId" parameterType="string">
+        delete
+        from v_exam_organ
+        where APPLY_ID = #{applyID}
+    </delete>
+</mapper>

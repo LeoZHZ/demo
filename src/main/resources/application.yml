@@ -1,0 +1,42 @@
+server:
+  port: 8088
+
+mybatis:
+  mapper-locations: classpath*:mapper/*/*Mapper.xml
+
+spring:
+  datasource:
+    first: #TagDataSource
+      driver-class-name: org.mariadb.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/fsy_pacs?characterEncoding=utf-8&useSSL=false
+      username: root
+      password: root
+      removeAbandoned: true
+
+    second: #体检中心
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      jdbc-url: jdbc:sqlserver://10.63.1.91:1433;DatabaseName=tj_xlms;integratedSecurity=false;useAffectedRows=true
+      username: xlmsuser
+      password: Topsky@123
+
+    thread: #阿里云
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://47.113.103.211:3306/future?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+      username: future
+      password: txQwd1o
+    # 日志
+
+    #    first: #TagDataSource
+    #      driver-class-name: com.mysql.jdbc.Driver
+    #      jdbc-url: jdbc:mysql://localhost:3305/fsy_pacs
+    #      name: root
+    #      password: root
+    #
+    #    second: #Datasource
+    #      driver-class-name: com.mysql.jdbc.Driver
+    #      jdbc-url: jdbc:mysql://localhost:3305/his
+    #      name: root
+    #      password: root
+
+    #控制器版本
+#isWhoHosptital: meihe

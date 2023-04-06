@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.thread.ExamMapper">
+    <resultMap id="resultExam" type="com.example.demo.bean.ExamBean">
+        <id property="examId" column="EXAM_ID"/>
+        <result property="wrId" column="EXAM_T_WR"/>
+        <result property="examEclass" column="EXAM_ECLASS"/>
+        <result property="examOrgPatId" column="EXAM_ORG_E_NO"/>
+    </resultMap>
+
+    <resultMap id="resultServer" type="com.example.demo.bean.ServerBean">
+        <id property="serverId" column="SERVER_ID"/>
+        <result property="serverIp" column="SERVER_IP"/>
+        <result property="serverDomainName" column="SERVER_DOMAIN_NAME"/>
+        <result property="serverPrivateIp" column="SERVER_PRIVATE_IP"/>
+        <result property="serverName" column="SERVER_NAME"/>
+        <result property="serverSharePath" column="SERVER_SHARE_PATH"/>
+        <result property="serverShareName" column="SERVER_SHARE_NAME"/>
+        <result property="serverNote" column="SERVER_NOTE"/>
+        <result property="serverLevel" column="SERVER_LEVEL"/>
+        <result property="serverStatus" column="SERVER_STATUS"/>
+        <result property="serverSpaceSize" column="SERVER_SPACE_SIZE"/>
+        <result property="serverUseSpace" column="SERVER_USE_SPACE"/>
+        <result property="serverAlarmLine" column="SERVER_ALARM_LINE"/>
+        <result property="serverTransferMode" column="SERVER_TRANSFER_MODE"/>
+        <result property="serverPrivateMode" column="SERVER_PRIVATE_MODE"/>
+        <result property="bakServerId" column="BAK_SERVER_ID"/>
+        <result property="serverReadUser" column="SERVER_READ_USER"/>
+        <result property="serverReadPwd" column="SERVER_READ_PWD"/>
+        <result property="serverWriteUser" column="SERVER_WRITE_USER"/>
+        <result property="serverWritePwd" column="SERVER_WRITE_PWD"/>
+        <result property="serverAddress" column="SERVER_ADDRESS"/>
+        <result property="serverFlag" column="SERVER_FLAG"/>
+        <result property="serverOnlineDate" column="SERVER_ONLINE_DATE"/>
+        <result property="serverOnlineTime" column="SERVER_ONLINE_TIME"/>
+        <result property="serverOfflineDate" column="SERVER_OFFLINE_DATE"/>
+        <result property="serverOffLineTime" column="SERVER_OFFLINE_TIME"/>
+        <result property="serverPort" column="SERVER_PORT"/>
+        <result property="serverWsPort" column="SERVER_WS_PORT"/>
+        <result property="serverProtocol" column="SERVER_PROTOCOL"/>
+    </resultMap>
+
+    <resultMap id="resultImage" type="com.example.demo.bean.ImageBean">
+        <id property="imageUid" column="IMAGE_UID"/>
+        <result property="studyId" column="STUDY_ID"/>
+        <result property="seriesUid" column="SERIES_UID"/>
+        <result property="imageNumber" column="IMAGE_NUMBER"/>
+        <result property="seriesNumber" column="SERIES_NUMBER"/>
+        <result property="imageFileName" column="IMAGE_FILE_NAME"/>
+        <result property="imageFileSize" column="IMAGE_FILE_SIZE"/>
+        <result property="imageFlag" column="IMAGE_FLAG"/>
+        <result property="imagePath" column="IMAGE_PATH"/>
+        <result property="imageWindowCenter" column="IMAGE_WINDOW_CENTER"/>
+        <result property="imageWindowWidth" column="IMAGE_WINDOW_WIDTH"/>
+        <result property="imageReportFlag" column="IMAGE_REPORT_FLAG"/>
+        <result property="imageKeyFlag" column="IMAGE_KEY_FLAG"/>
+        <result property="imagePrivateFlag" column="IMAGE_PRIVATE_FLAG"/>
+    </resultMap>
+    <select id="select" parameterType="string"
+            resultMap="resultExam">
+        SELECT *
+        FROM E_Exams
+        WHERE  EXAM_T_WR = #{wrId}
+          AND EXAM_ORG_E_NO = #{patNo}
+          AND EXAM_ECLASS = #{eClass}
+    </select>
+    <select id="getStudyIdByExamId" resultType="string" parameterType="string">
+        select STUDY_IMG_CNT
+        from r_studys
+        where EXAM_ID = #{examId}
+    </select>
+    <select id="getStudyIdByExamId2" resultType="com.example.demo.bean.StoreBean" parameterType="string">
+        select st.STORE_ID          storeId,
+               st.SERVER_ID         serverId,
+               st.STUDY_ID          studyId,
+               st.STORE_SIZE        storeSize,
+               st.STORE_LEVEL       storeLevel,
+               st.STORE_READ_CNT    storeReadCnt,
+               st.STORE_DATE        storeDate,
+               st.STORE_TIME        storeTime,
+               st.STORE_PATH        storePath,
+               st.STORE_ONLINE_FLAG storeOnlineFlag
+        from r_store st
+        where STUDY_ID = (select STUDY_ID from r_studys where EXAM_ID = #{examId})
+    </select>
+    <select id="selectServerByServerId" parameterType="String" resultMap="resultServer">
+        SELECT *
+        FROM R_SERVER
+        WHERE SERVER_ID = #{serverId}
+    </select>
+    <select id="selectImageByStudyId" parameterType="com.example.demo.bean.ImageBean" resultMap="resultImage">
+        SELECT *
+        FROM R_IMAGE
+        WHERE STUDY_ID = #{studyId}
+        order by SERIES_NUMBER, IMAGE_NUMBER
+    </select>
+</mapper>

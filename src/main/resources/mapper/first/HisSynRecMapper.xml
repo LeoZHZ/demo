@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.first.HisSynRecMapper">
+    <resultMap id="resultFileToPdf" type="com.example.demo.bean.FileConvertedPdfBean">
+        <id property="applyId" column="APPLY_ID"/>
+        <result property="dateTime" column="DATETIME"/>
+        <result property="fileUrl" column="FILE_URL"/>
+        <result property="pdfUrl" column="PDF_URL"/>
+        <result property="flag" column="FLAG"/>
+    </resultMap>
+    <resultMap id="resultFileRemove" type="com.example.demo.bean.FileRemoveBean">
+        <id property="examId" column="exam_id"/>
+        <result property="flag" column="flag"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModifie" column="gmt_modifie"/>
+        <result property="newFileUrl" column="new_file_url"/>
+        <result property="oldFileUrl" column="old_file_url"/>
+    </resultMap>
+    <resultMap id="resultSyn" type="com.example.demo.bean.HisSynRecBean">
+        <id property="examId" column="EXAM_ID"/>
+        <result property="patName" column="sickName"/>
+        <result property="examSynFlag" column="EXAM_SYN_FLAG"/>
+        <result property="examSynDt" column="EXAM_SYN_DATETIME"/>
+        <result property="reportSynFlag" column="REPORT_SYN_FLAG"/>
+        <result property="reportSynDt" column="REPORT_SYN_DATETIME"/>
+        <result property="dicomSynFlag" column="DICOM_SYN_FLAG"/>
+        <result property="dicomSynDt" column="DICOM_SYN_DATETIME"/>
+        <result property="errorType" column="ERROR_TYPE"/>
+        <result property="errorInfo" column="ERROR_INFO"/>
+        <result property="qrUrl" column="QR_URL"/>
+        <result property="qrImage" column="QR_IMAGE"/>
+    </resultMap>
+    <resultMap id="resultLoad" type="com.example.demo.bean.RecLoadBean">
+        <id property="examId" column="EXAM_ID"/>
+        <result property="filePath" column="FILEPATH"/>
+        <result property="flag" column="FLAG"/>
+        <result property="loadDateTime" column="LOAD_DATETIME"/>
+        <result property="msg" column="MSG"/>
+        <result property="examEclass" column="EXAM_E_CLASS"/>
+        <result property="patNo" column="PAT_NO"/>
+        <result property="wrId" column="WR_ID"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+    <select id="select" resultType="java.lang.String">
+        SELECT EXAM_ID
+        FROM HIS_SYN_REC
+        Where DICOM_SYN_DATETIME > DATE_SUB(NOW(), INTERVAL 5 MINUTE)
+    </select>
+    <insert id="insert" parameterType="com.example.demo.bean.HisSynRecBean">
+        INSERT INTO HIS_SYN_REC
+        values (#{examId}, #{patName}, #{examSynFlag}, #{examSynDt},
+                #{reportSynFlag}, #{reportSynDt}, #{dicomSynFlag}, #{dicomSynDt}, #{errorType}, #{errorInfo}, #{qrUrl},
+                #{qrImage})
+    </insert>
+    <select id="selectIsExist" parameterType="string" resultType="int">
+        select count(*)
+        from HIS_SYN_REC
+        where EXAM_ID = #{examId}
+    </select>
+    <update id="update" parameterType="com.example.demo.bean.HisSynRecBean">
+        UPDATE HIS_SYN_REC
+        <set>
+            <if test="patName != null and patName != ''">`SICK_NAME` = #{patName},</if>
+            <if test="examSynFlag != null and examSynFlag != ''">`EXAM_SYN_FLAG` = #{examSynFlag},</if>
+            <if test="examSynDt != null and examSynDt != ''">`EXAM_SYN_DATETIME` = #{examSynDt},</if>
+            <if test="reportSynFlag != null and reportSynFlag != ''">`REPORT_SYN_FLAG` = #{reportSynFlag},</if>
+            <if test="reportSynDt != null and examSynDt != ''">`REPORT_SYN_DATETIME` = #{reportSynDt},</if>
+            <if test="dicomSynFlag != null and dicomSynFlag != ''">`DICOM_SYN_FLAG` = #{dicomSynFlag},</if>
+            <if test="dicomSynDt != null and examSynDt != ''">`DICOM_SYN_DATETIME` = #{dicomSynDt},</if>
+            <if test="errorType != null and errorType != ''">`ERROR_TYPE` = #{errorType},</if>
+            <if test="errorInfo != null and errorInfo != ''">`ERROR_INFO` = #{errorInfo},</if>
+            <if test="qrUrl != null and qrUrl != ''">`QR_URL` = #{qrUrl},</if>
+            <if test="qrImage != null and qrImage != ''">`QR_IMAGE` = #{qrImage},</if>
+        </set>
+        WHERE `EXAM_ID` = #{examId}
+    </update>
+    <update id="updateOne">
+        UPDATE HIS_SYN_REC
+        set `DICOM_SYN_FLAG` ='0'
+        Where EXAM_ID = #{examId}
+    </update>
+    <select id="selectRecLoad" resultMap="resultLoad">
+        select *
+        from REC_LOAD
+        where FLAG = '0'
+
+          and NOW() >= date_add(LOAD_DATETIME, INTERVAL 5 minute)
+
+          and LOAD_DATETIME >= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+    </select>
+    <update id="updateFlag">
+        UPDATE REC_LOAD
+        set FLAG='1',
+            MSG= #{msg},
+            count=#{count}
+        where EXAM_ID = #{examId}
+    </update>
+    <insert id="insertFileConvertedPdfOne">
+        insert INTO file_converted_pdf
+        values (#{applyId}, #{fileUrl}, #{pdfUrl}, #{flag},
+                #{dateTime})
+    </insert>
+    <update id="updateFileConvertedPdfOne">
+        UPDATE file_converted_pdf
+        <set>
+            <if test="fileUrl != null and fileUrl != ''">`FILE_URL` = #{fileUrl},</if>
+            <if test="pdfUrl != null and pdfUrl != ''">`PDF_URL` =#{pdfUrl},</if>
+            <if test="flag != null and flag != ''">`FLAG` = #{flag},</if>
+            <if test="dateTime != null and dateTime != ''">`DATETIME` = #{dateTime},</if>
+        </set>
+        WHERE `APPLY_ID` = #{applyId}
+    </update>
+    <select id="selectFileConvertedPdfEntityList" resultMap="resultFileToPdf">
+        select *
+        from file_converted_pdf
+        where flag = 0
+          and NOW() >= date_add(DATETIME, INTERVAL 1 minute)
+          and DATETIME >= DATE_SUB(NOW(), INTERVAL 20 MINUTE)
+    </select>
+    <select id="getSubApplyId" parameterType="string" resultType="java.lang.String">
+        select sub_apply_id as subApplyId
+        from v_sub_exam
+        where `APPLY_ID` = #{applyId}
+    </select>
+    <insert id="insertReports" parameterType="com.example.demo.bean.ExamSynReportsBean">
+        INSERT INTO exam_syn_reports
+        values (#{examId}, #{applyId}, #{sickName}, #{examNo}, #{examStatus}, #{examStatusMemo}, #{reportParam},
+                #{reportDescription}, #{reportImpression}, #{reportRecommendation}, #{reportAbnormal}, #{examRisks},
+                #{reportUserName}, #{reportDatetime}, #{verifyUserName}, #{verifyDatetime}, #{updateDatetime},
+                #{reportFileContent}, #{fileUrl}, #{reportUserCode}, #{verifyUserCode}, #{ftpUrl}, #{jpgUrl})
+    </insert>
+    <select id="selectReportsBySubApplyId" parameterType="string" resultType="java.lang.String">
+        select *
+        from exam_syn_reports
+        where apply_Id = #{subApplyId}
+    </select>
+    <select id="selectAllFileRemove" resultMap="resultFileRemove">
+        select *
+        from file_remove
+        where `flag` = '0'
+          and NOW() >= date_add(gmt_create, INTERVAL 30 SECOND)
+          and gmt_create >= DATE_SUB(NOW(), INTERVAL 30 MINUTE)
+    </select>
+    <select id="getItemNameBySubApplyId" resultType="java.lang.String">
+        SELECT ITEM_NAME
+        from v_sub_exam_item
+        where apply_id = #{subApplyId}
+    </select>
+    <update id="updateOneFileRemove">
+        update file_remove
+        <set>flag = #{flag}</set>
+        where `exam_id`=#{examId} and `new_file_url`=#{url}
+    </update>
+    <update id="updateReports">
+        update exam_syn_reports
+        <set>file_url = #{fileUrl}</set>
+        where `APPLY_ID`=#{applyId}
+    </update>
+    <select id="updateByApplyId" parameterType="string">
+        UPDATE exams
+            INNER JOIN ( SELECT * FROM v_sub_exam WHERE APPLY_ID = #{applyId} ) b
+        ON exams.APPLY_ID = b.APPLY_ID
+            SET exams.PAT_SEX = b.SICK_SEX
+                limit 1
+    </select>
+    <select id="getApplyIdBySex" resultType="java.lang.String">
+        SELECT APPLY_ID
+        FROM exams
+        WHERE `PAT_SEX` LIKE '%未知%'
+    </select>
+</mapper>
